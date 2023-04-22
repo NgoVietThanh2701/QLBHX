@@ -9,7 +9,8 @@ export const Branch = (port = process.env.PORT_DEFAULT) => {
     let Branch = connect(port).define('Branch', {
         codeBranch: {
             primaryKey: true,
-            type: DataTypes.STRING(11),
+            defaultValue: DataTypes.UUIDV4,
+            type: DataTypes.STRING,
             allowNull: false,
             validate: {
                 notEmpty: true
@@ -34,9 +35,9 @@ export const Branch = (port = process.env.PORT_DEFAULT) => {
     return Branch;
 }
 
-(async() => {
-    await Branch().sync();
-})();
+// (async() => {
+//     await Branch().sync();
+// })();
 
 
 

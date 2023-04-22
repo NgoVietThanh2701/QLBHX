@@ -2,7 +2,12 @@ import { Branch } from "../../models/admin/BranchModel";
 
 export const createBranch = async (req, res) => {
     try {
-        // const {codeBranch, name, address} = req.body;
+        const {name, address} = req.body;
+        await Branch().create({
+            name: name,
+            address: address
+        });
+        res.status(201).json({msg: "create branch successfully!"});
     } catch (error) {
         res.status(400).json({msg: error.message})
     }

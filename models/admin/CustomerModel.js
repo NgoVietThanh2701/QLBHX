@@ -6,9 +6,9 @@ dotenv.config();
 
 const {DataTypes} = Sequelize;
 
-export const Staff = (port = process.env.PORT_DEFAULT) => {
-    let Staff = connect(port).define('Staff', {
-        codeStaff: {
+export const Customer = (port = process.env.PORT_DEFAULT) => {
+    let Customer = connect(port).define('Customer', {
+        codeCustomer: {
             type: DataTypes.STRING,
             defaultValue: DataTypes.UUIDV4,
             allowNull: false,
@@ -23,18 +23,31 @@ export const Staff = (port = process.env.PORT_DEFAULT) => {
                notEmpty: true,
             }
         },
-        address: {
+        email: {
             type: DataTypes.STRING,
             allowNull: false,
             validate: {
                 notEmpty: true,
             }
         },
-        salary: {
-            type: DataTypes.INTEGER,
+        password: {
+            type: DataTypes.STRING,
             allowNull: false,
             validate: {
+                notEmpty: true,
+            }
+        },
+        phone: {
+            type: DataTypes.INTEGER,
+            validate : {
                 notEmpty: true
+            }
+        },
+        address: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            validate: {
+                notEmpty: true,
             }
         },
         codeBranch: {
@@ -47,14 +60,14 @@ export const Staff = (port = process.env.PORT_DEFAULT) => {
     }, {
         freezeTableName: true,
     });
-    return Staff;
+    return Customer;
 }
 
-Branch().hasMany(Staff());
-Staff().belongsTo(Branch(), {foreignKey: 'codeBranch'});
+Branch().hasMany(Customer());
+Customer().belongsTo(Branch(), {foreignKey: 'codeBranch'});
 
 // (async() => {
-//     await Staff().sync();
+//     await Customer().sync();
 // })();
 
 

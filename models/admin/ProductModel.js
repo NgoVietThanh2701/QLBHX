@@ -63,8 +63,8 @@ export const Product = (port = process.env.PORT_DEFAULT) => {
                notEmpty: true,
             }
         },
-        codeWH: {
-            type: DataTypes.STRING(20),
+        warehouseID: {
+            type: DataTypes.INTEGER,
             allowNull: false,
             validate: {
                 notEmpty: true
@@ -85,14 +85,14 @@ export const Product = (port = process.env.PORT_DEFAULT) => {
 }
 
 Warehouse().hasMany(Product());
-Product().belongsTo(Warehouse(), {foreignKey: 'codeWH'});
+Product().belongsTo(Warehouse(), {foreignKey: 'warehouseID'});
 
 Type().hasMany(Product());
 Product().belongsTo(Type(), {foreignKey: 'typeID'});
 
-(async() => {
-    await Product().sync();
-})();
+// (async() => {
+//     await Product().sync();
+// })();
 
 
 

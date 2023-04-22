@@ -45,7 +45,7 @@ export const Manager = (port = process.env.PORT_DEFAULT) => {
             }
         },
         codeBranch: {
-            type: DataTypes.STRING(11),
+            type: DataTypes.STRING,
             allowNull: false,
             validate: {
                 notEmpty: true
@@ -60,9 +60,9 @@ export const Manager = (port = process.env.PORT_DEFAULT) => {
 Branch().hasMany(Manager());
 Manager().belongsTo(Branch(), {foreignKey: 'codeBranch'});
 
-(async() => {
-    await Manager().sync();
-})();
+// (async() => {
+//     await Manager().sync();
+// })();
 
 
 

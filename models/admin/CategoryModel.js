@@ -28,9 +28,9 @@ export const Category = (port = process.env.PORT_DEFAULT) => {
     return Category;
 }
 
-(async() => {
-    await Category().sync();
-})();
+// (async() => {
+//     await Category().sync();
+// })();
 
 
 

@@ -39,9 +39,9 @@ export const Type = (port = process.env.PORT_DEFAULT) => {
 Category().hasMany(Type());
 Type().belongsTo(Category(), {foreignKey: 'CategoryID'});
 
-(async() => {
-    await Type().sync();
-})();
+// (async() => {
+//     await Type().sync();
+// })();
 
 
 

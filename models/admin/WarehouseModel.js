@@ -9,8 +9,8 @@ const {DataTypes} = Sequelize;
 export const Warehouse = (port = process.env.PORT_DEFAULT) => {
     let Warehouse = connect(port).define('Warehouse', {
         codeWH: {
-            primaryKey: true,
-            type: DataTypes.STRING(30),
+            type: DataTypes.STRING,
+            defaultValue: DataTypes.UUIDV4,
             allowNull: false,
             validate: {
                 notEmpty: true
@@ -31,7 +31,7 @@ export const Warehouse = (port = process.env.PORT_DEFAULT) => {
             }
         },
         codeBranch: {
-            type: DataTypes.STRING(11),
+            type: DataTypes.STRING,
             allowNull: false,
             validate: {
                 notEmpty: true
@@ -46,9 +46,9 @@ export const Warehouse = (port = process.env.PORT_DEFAULT) => {
 Branch().hasMany(Warehouse());
 Warehouse().belongsTo(Branch(), {foreignKey: 'codeBranch'});
 
-(async() => {
-    await Warehouse().sync();
-})();
+// (async() => {
+//     await Warehouse().sync();
+// })();
 
 
 
