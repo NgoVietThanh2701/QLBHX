@@ -2,7 +2,7 @@ import { Customer } from "../../models/admin/CustomerModel";
 import argon2 from 'argon2';
 
 export const createCustomer = async (req, res) => {
-    const {name, email, password, confPassword, phone, address, codeBranch} = req.body;
+    const {name, email, password, confPassword, phone, address} = req.body;
     if (password !== confPassword)
         return res.status(400).json({ msg: "password not matched" });
     const customers = await Customer().findAll();
@@ -21,7 +21,6 @@ export const createCustomer = async (req, res) => {
             password: hashPassword,
             phone: phone,
             address: address,
-            codeBranch: codeBranch
         });
         res.status(201).json({msg: "create Customer successfully!"});
     } catch (error) {

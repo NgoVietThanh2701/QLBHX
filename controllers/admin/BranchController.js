@@ -12,3 +12,11 @@ export const createBranch = async (req, res) => {
         res.status(400).json({msg: error.message})
     }
 }
+
+export const getBranch = async (req, res) => {
+    try {
+
+    } catch(error) {
+        
+    }
+}

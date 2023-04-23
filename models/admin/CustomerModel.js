@@ -50,21 +50,11 @@ export const Customer = (port = process.env.PORT_DEFAULT) => {
                 notEmpty: true,
             }
         },
-        codeBranch: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            validate: {
-                notEmpty: true
-            }
-        }
     }, {
         freezeTableName: true,
     });
     return Customer;
 }
-
-Branch().hasMany(Customer());
-Customer().belongsTo(Branch(), {foreignKey: 'codeBranch'});
 
 // (async() => {
 //     await Customer().sync();

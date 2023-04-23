@@ -38,6 +38,7 @@ export const Cart = (port = process.env.PORT_DEFAULT) => {
     }, {
         freezeTableName: true,
     });
+
     return Cart;
 }
 

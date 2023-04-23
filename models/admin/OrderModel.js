@@ -2,6 +2,7 @@ import { DataTypes } from "sequelize";
 import {connect} from "../../config/Database";
 import dotenv from 'dotenv';
 import { Customer } from "./CustomerModel";
+import { Branch } from "./BranchModel";
 dotenv.config();
 
 export const Order = (port = process.env.PORT_DEFAULT) => {
@@ -12,7 +13,14 @@ export const Order = (port = process.env.PORT_DEFAULT) => {
             validate: {
                notEmpty: true,
             }
-         },
+        },
+        codeBranch: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            validate: {
+               notEmpty: true,
+            }
+        },
         method: {
             type: DataTypes.STRING,
             allowNull: false,
@@ -51,6 +59,8 @@ export const Order = (port = process.env.PORT_DEFAULT) => {
 
 Customer().hasMany(Order());
 Order().belongsTo(Customer(), {foreignKey: 'customerID'});
+Branch().hasMany(Order());
+Order().belongsTo(Branch(), {foreignKey: 'codeBranch'});
 
 // (async() => {
 //     await Order().sync();

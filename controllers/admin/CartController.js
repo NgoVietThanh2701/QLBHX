@@ -41,7 +41,7 @@ export const getCart = async (req, res) => {
             attributes: ["id", "customerID", "productID", "quantity", "status"],
             where: {
                 customerID: customer.id
-            }
+            },
         });
         res.status(201).json(carts)
     } catch(error) {
