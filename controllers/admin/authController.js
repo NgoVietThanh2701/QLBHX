@@ -15,7 +15,7 @@ export const login = async (req, res) => {
     const role = manager.role;
     req.session.codeManager = manager.codeManager;
     req.session.port_cn = req.body.port_cn;
-    res.status(200).json({name, email, role});
+    res.status(200).json({ name, email, role });
 }
 
 export const me = async (req, res) => {

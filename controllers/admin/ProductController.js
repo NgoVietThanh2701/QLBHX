@@ -20,7 +20,7 @@ export const createProduct = async (req, res) => {
     file.mv(`./public/images/products/${fileName}`, async(err) => {
         if(err) return res.status(500).json({msg: err.message});
         try {
-            await Product().create({
+            await Product(req.port_cn).create({
                 name: name,
                 image: fileName,
                 url: url,
@@ -36,5 +36,28 @@ export const createProduct = async (req, res) => {
             res.status(400).json({ msg: "catch: "+error.message });
         }
     })
+}
 
+export const getProducts = async (req, res) => {
+    try {
+        const products = await Product(req.port_cn).findAll({
+            attributes: ['id', 'codeProduct', 'name', 'image', 'url', 'description', 'price', 'discount', 'stock', 'warehouseID', 'typeID']
+        });
+        res.status(200).json(products);
+    } catch(error) {
+        return res.status(500).json({msg: error.message});
+    }
+}
+
+export const deleteProduct = async (req, res) => {
+    const product = await Product(req.port_cn).findOne({where: {codeProduct: req.params.codeProduct}});
+    if(!product) return res.status(400).json({msg: "product not found"});
+    try {
+        const filepath = `./public/images/products/${product.image}`;
+        fs.unlinkSync(filepath);
+        await Product(req.port_cn).destroy({where: {id: product.id}});
+        res.status(200).json({msg: "delete product successfully"});
+    }catch(error) {
+        return res.status(500).json({msg: error.message})
+    }
 }
