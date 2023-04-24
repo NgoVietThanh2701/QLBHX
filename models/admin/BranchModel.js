@@ -31,6 +31,7 @@ export const Branch = (port = process.env.PORT_DEFAULT) => {
         }
     }, {
         freezeTableName: true,
+        hasTrigger: true
     });
     return Branch;
 }

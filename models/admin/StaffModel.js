@@ -46,6 +46,7 @@ export const Staff = (port = process.env.PORT_DEFAULT) => {
         }
     }, {
         freezeTableName: true,
+        hasTrigger: true
     });
     return Staff;
 }

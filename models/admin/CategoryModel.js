@@ -24,6 +24,7 @@ export const Category = (port = process.env.PORT_DEFAULT) => {
          },
     }, {
         freezeTableName: true,
+        hasTrigger: true
     });
     return Category;
 }

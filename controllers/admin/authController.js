@@ -2,7 +2,7 @@ import {Manager} from "../../models/admin/ManagerModel";
 import argon2 from 'argon2';
 
 export const login = async (req, res) => {
-    const manager = await Manager().findOne({
+    const manager = await Manager(req.body.port_cn).findOne({
         where: {
             email: req.body.email
         }
@@ -13,22 +13,21 @@ export const login = async (req, res) => {
     const name = manager.name;
     const email = manager.email;
     const role = manager.role;
-    req.session.codemanager = manager.codeManager;
+    req.session.codeManager = manager.codeManager;
     req.session.port_cn = req.body.port_cn;
     res.status(200).json({name, email, role});
 }
 
 export const me = async (req, res) => {
-    if(!req.session.codemanager) {
+    if(!req.session.codeManager ||  !req.session.port_cn) {
         return res.status(401).json({msg: "please, login with account"});
     }
-    const manager = await Manager().findOne({
+    const manager = await Manager( req.session.port_cn).findOne({
         attributes: ['codeManager', 'name', 'email', 'role', 'codeBranch'],
         where: {
-            codeManager: req.session.codemanager
+            codeManager: req.session.codeManager
         }
     });
-    console.log("---"+req.session.port_cn);
     if(!manager) return res.status(404).json({msg: "manager not found"});
     res.status(201).json(manager);
 }

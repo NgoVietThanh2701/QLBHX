@@ -52,6 +52,7 @@ export const Customer = (port = process.env.PORT_DEFAULT) => {
         },
     }, {
         freezeTableName: true,
+        hasTrigger: true
     });
     return Customer;
 }

@@ -32,6 +32,7 @@ export const Type = (port = process.env.PORT_DEFAULT) => {
         }
     }, {
         freezeTableName: true,
+        hasTrigger: true
     });
     return Type;
 }

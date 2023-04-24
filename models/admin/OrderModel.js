@@ -52,6 +52,7 @@ export const Order = (port = process.env.PORT_DEFAULT) => {
         },
     }, {
         freezeTableName: true,
+        hasTrigger: true
     });
     return Order;
 }

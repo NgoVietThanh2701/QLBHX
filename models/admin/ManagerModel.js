@@ -53,6 +53,7 @@ export const Manager = (port = process.env.PORT_DEFAULT) => {
         }
     }, {
         freezeTableName: true,
+        hasTrigger: true
     });
     return Manager;
 }
