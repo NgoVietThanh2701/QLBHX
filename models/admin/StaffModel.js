@@ -48,11 +48,11 @@ export const Staff = (port = process.env.PORT_DEFAULT) => {
         freezeTableName: true,
         hasTrigger: true
     });
+    Branch().hasMany(Staff);
+    Staff.belongsTo(Branch(), {foreignKey: 'codeBranch'});
+
     return Staff;
 }
-
-Branch().hasMany(Staff());
-Staff().belongsTo(Branch(), {foreignKey: 'codeBranch'});
 
 // (async() => {
 //     await Staff().sync();

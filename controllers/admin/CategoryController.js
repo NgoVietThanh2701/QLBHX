@@ -14,7 +14,7 @@ export const createCategory = async (req, res) => {
 export const getCategories = async (req, res) => {
     try {
         const categories = await Category().findAll({
-            attributes: ['id', 'codeCategory', 'name']
+            attributes: ['id', 'codeCategory', 'name', 'createdAt']
         });
         res.status(200).json(categories);
     } catch(error) {

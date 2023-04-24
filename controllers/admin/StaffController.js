@@ -1,3 +1,4 @@
+import { Branch } from "../../models/admin/BranchModel";
 import { Staff } from "../../models/admin/StaffModel"
 
 export const createStaff = async (req, res) => {
@@ -18,7 +19,8 @@ export const createStaff = async (req, res) => {
 export const getStaff = async(req, res) => {
     try {
         const staffs = await Staff(req.port_cn).findAll({
-            attributes: ['id', 'codeStaff', 'name', 'address', 'salary', 'createdAt']
+            attributes: ['id', 'codeStaff', 'name', 'address', 'salary', 'createdAt'],
+            include: {model: Branch()}
         });
         res.status(201).json(staffs);
     }catch(error) {

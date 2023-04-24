@@ -1,6 +1,8 @@
 import { Product } from "../../models/admin/ProductModel";
 import path from "path";
 import fs from "fs"
+import { Warehouse } from "../../models/admin/WarehouseModel";
+import { Type } from "../../models/admin/TypeModel";
 
 export const createProduct = async (req, res) => {
     if(req.files === null) return res.status(400).json({msg: "No file uploaded"});
@@ -41,7 +43,12 @@ export const createProduct = async (req, res) => {
 export const getProducts = async (req, res) => {
     try {
         const products = await Product(req.port_cn).findAll({
-            attributes: ['id', 'codeProduct', 'name', 'image', 'url', 'description', 'price', 'discount', 'stock', 'warehouseID', 'typeID']
+            attributes: ['id', 'codeProduct', 'name', 'image', 'url', 'description', 'price', 'discount', 'stock', 'warehouseID', 'typeID'],
+            include: [
+                {model: Type()},
+                {model: Warehouse()},
+               
+            ]
         });
         res.status(200).json(products);
     } catch(error) {

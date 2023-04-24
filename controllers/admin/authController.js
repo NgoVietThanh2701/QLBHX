@@ -1,7 +1,12 @@
 import {Manager} from "../../models/admin/ManagerModel";
 import argon2 from 'argon2';
+import dotenv from 'dotenv';
+dotenv.config();
 
 export const login = async (req, res) => {
+    if(req.body.email=='admin@gmail.com') {
+        req.body.port_cn = process.env.PORT_DEFAULT
+    }
     const manager = await Manager(req.body.port_cn).findOne({
         where: {
             email: req.body.email
