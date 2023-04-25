@@ -16,7 +16,7 @@ export const getCategory = async (req, res) => {
 
 export const getProduct = async (req, res) => {
     try {
-        const products = await Product(req.session.port_user).findAll({
+        const products = await Product(req.params.port).findAll({
             attributes: ['id', 'codeProduct', 'name', 'image', 'url', 'description', 'price', 'discount', 'stock', 'typeID', 'warehouseID'],
         });
         res.status(200).json(products);
