@@ -16,10 +16,7 @@ export const createType = async (req, res) => {
 export const getTypes = async (req, res) => {
     try {
         const types = await Type().findAll({
-            attributes: ['id', 'codeType', 'name', 'categoryID'],
-            include: {
-                model: Category()
-            }
+            attributes: ['id', 'codeType', 'name', 'categoryID', 'createdAt'],
         });
         res.status(200).json(types);
     } catch(error) {

@@ -19,8 +19,7 @@ export const createStaff = async (req, res) => {
 export const getStaff = async(req, res) => {
     try {
         const staffs = await Staff(req.port_cn).findAll({
-            attributes: ['id', 'codeStaff', 'name', 'address', 'salary', 'createdAt'],
-            include: {model: Branch()}
+            attributes: ['id', 'codeStaff', 'name', 'address', 'salary', 'codeBranch', 'createdAt'],
         });
         res.status(201).json(staffs);
     }catch(error) {

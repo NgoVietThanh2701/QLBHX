@@ -35,12 +35,11 @@ export const Type = (port = process.env.PORT_DEFAULT) => {
         hasTrigger: true
     });
 
-    Category().hasMany(Type);
-    Type.belongsTo(Category(), {foreignKey: 'CategoryID'});
-
     return Type;
 }
 
+Category().hasMany(Type());
+Type().belongsTo(Category(), {foreignKey: 'CategoryID'});
 
 // (async() => {
 //     await Type().sync();

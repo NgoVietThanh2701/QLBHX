@@ -27,3 +27,14 @@ export const createCustomer = async (req, res) => {
         res.status(400).json({msg: error.message})
     }
 }
+
+export const getCustomer = async (req, res) => {
+    try {
+        const customer = await Customer(req.port_cn).findAll({
+            attributes: ['id', 'codeCustomer', 'name', 'email', 'phone', 'address', 'createdAt'],
+        });
+        res.status(200).json(customer);
+    } catch(error) {
+        return res.status(500).json({msg: error.message});
+    }
+}

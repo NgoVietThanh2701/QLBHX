@@ -55,11 +55,12 @@ export const Manager = (port = process.env.PORT_DEFAULT) => {
         freezeTableName: true,
         hasTrigger: true
     });
-    Branch().hasMany(Manager);
-    Manager.belongsTo(Branch(), {foreignKey: 'codeBranch'});
 
     return Manager;
 }
+
+Branch().hasMany(Manager());
+Manager().belongsTo(Branch(), {foreignKey: 'codeBranch'});
 
 // (async() => {
 //     await Manager().sync();

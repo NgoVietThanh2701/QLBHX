@@ -17,6 +17,8 @@ import customerRoute from "./routes/admin/CustomerRoute";
 import orderRoute from "./routes/admin/OrderRoute";
 import cartRoute from "./routes/admin/CartRoute";
 import authRoute from "./routes/admin/AuthRoute";
+// -------- router user
+import getRoute from './routes/user/getRouter';
 
 //root:3434 dn:3435 hcm:3436: hn:3437
 
@@ -58,6 +60,8 @@ app.use('/admin', customerRoute);
 app.use('/admin', orderRoute);
 app.use('/admin', cartRoute);
 app.use('/admin', authRoute);
+// --------
+app.use(getRoute);
 
 // create sessions to database
 // store.sync(); 

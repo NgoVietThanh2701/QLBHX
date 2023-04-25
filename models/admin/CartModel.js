@@ -39,14 +39,15 @@ export const Cart = (port = process.env.PORT_DEFAULT) => {
         freezeTableName: true,
         hasTrigger: true
     });
-    Product().hasMany(Cart);
-    Cart.belongsTo(Product(), {foreignKey: 'productID'});
-    
-    Customer().hasMany(Cart);
-    Cart.belongsTo(Customer(), {foreignKey: 'customerID'});
 
     return Cart;
 }
+
+Product().hasMany(Cart());
+Cart().belongsTo(Product(), {foreignKey: 'productID'});
+
+Customer().hasMany(Cart());
+Cart().belongsTo(Customer(), {foreignKey: 'customerID'});
 
 // (async() => {
 //     await Cart().sync();

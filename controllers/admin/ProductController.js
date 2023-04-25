@@ -43,12 +43,17 @@ export const createProduct = async (req, res) => {
 export const getProducts = async (req, res) => {
     try {
         const products = await Product(req.port_cn).findAll({
-            attributes: ['id', 'codeProduct', 'name', 'image', 'url', 'description', 'price', 'discount', 'stock', 'warehouseID', 'typeID'],
-            include: [
-                {model: Type()},
-                {model: Warehouse()},
-               
-            ]
+            attributes: ['id', 'codeProduct', 'name', 'image', 'url', 'description', 'price', 'discount', 'stock', 'typeID', 'warehouseID'],
+            // include: [
+            //     {
+            //         model: Type(),
+            //         attributes: ['id', 'codeType', 'name', 'categoryID']
+            //     },
+            //     {
+            //         model: Warehouse(),
+            //         attributes: ['id', 'codeWH', 'name', 'address', 'codeBranch']
+            //     },
+            // ]
         });
         res.status(200).json(products);
     } catch(error) {

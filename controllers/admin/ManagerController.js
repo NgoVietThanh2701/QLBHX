@@ -32,8 +32,7 @@ export const createManager = async (req, res) => {
 export const getManager = async (req, res) => {
     try {
         const manager = await Manager(req.port_cn).findAll({
-            attributes: ['codeManager', 'name', 'email', 'role', 'codeBranch'],
-            include: {model: Branch()}
+            attributes: ['id', 'codeManager', 'name', 'email', 'role', 'codeBranch'],
         });
         res.status(200).json(manager);
     } catch(error) {

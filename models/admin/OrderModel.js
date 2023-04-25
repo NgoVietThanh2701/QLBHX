@@ -55,14 +55,13 @@ export const Order = (port = process.env.PORT_DEFAULT) => {
         hasTrigger: true
     });
 
-    Customer().hasMany(Order);
-    Order.belongsTo(Customer(), {foreignKey: 'customerID'});
-    Branch().hasMany(Order);
-    Order.belongsTo(Branch(), {foreignKey: 'codeBranch'});
-
     return Order;
 }
 
+Customer().hasMany(Order());
+Order().belongsTo(Customer(), {foreignKey: 'customerID'});
+Branch().hasMany(Order());
+Order().belongsTo(Branch(), {foreignKey: 'codeBranch'});
 // (async() => {
 //     await Order().sync();
 // })();

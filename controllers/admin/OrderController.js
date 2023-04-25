@@ -59,3 +59,28 @@ export const createOrder = async (req, res) => {
         res.status(500).json({msg: error.message});
     }
 }
+
+export const getOrders = async (req, res) => {
+    try {
+        const orders = await Order(req.port_cn).findAll({
+            attributes: ['id', 'customerID', 'codeBranch', 'method', 'status', 'total', 'note', 'createdAt']
+        });
+        res.status(200).json(orders);
+    } catch(error) {
+        res.status(500).json({msg: error.message});
+    } 
+}
+
+export const getOrderDetail = async (req, res) => {
+    try {
+        const order_detail = await OrderDetail(req.port_cn).findAll({
+            attributes: ['id', 'orderID', 'productID', 'quantity', 'total_price', 'createdAt'],
+            where: {
+                orderID: req.params.id
+            }
+        });
+        res.status(200).json(order_detail);
+    } catch(error) {
+        res.status(500).json({msg: error.message});
+    }
+}

@@ -1,3 +1,4 @@
+import { Branch } from "../../models/admin/BranchModel";
 import { Warehouse } from "../../models/admin/WarehouseModel"
 
 export const createWarehouse = async (req, res) => {
@@ -17,7 +18,7 @@ export const createWarehouse = async (req, res) => {
 export const getWarehouse = async(req, res) => {
     try {
         const warehouses = await Warehouse(req.port_cn).findAll({
-            attributes: ['id', 'codeWH', 'name', 'address', 'codeBranch', 'createdAt']
+            attributes: ['id', 'codeWH', 'name', 'address', 'codeBranch', 'createdAt'],
         });
         res.status(201).json(warehouses);
     }catch(error) {

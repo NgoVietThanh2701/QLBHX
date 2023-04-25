@@ -41,11 +41,7 @@ export const getCart = async (req, res) => {
             attributes: ["id", "customerID", "productID", "quantity", "status"],
             where: {
                 customerID: customer.id
-            },
-            include:[ 
-                { model: Customer() },
-                { model: Product() },
-            ]   
+            },  
         });
         res.status(201).json(carts)
     } catch(error) {

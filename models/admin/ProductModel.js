@@ -83,14 +83,15 @@ export const Product = (port = process.env.PORT_DEFAULT) => {
         hasTrigger: true
     });
 
-    Warehouse().hasMany(Product);
-    Product.belongsTo(Warehouse(), {foreignKey: 'warehouseID'});
-
-    Type().hasMany(Product);
-    Product.belongsTo(Type(), {foreignKey: 'typeID'});
-
     return Product;
 }
+
+
+Warehouse().hasMany(Product());
+Product().belongsTo(Warehouse(), {foreignKey: 'warehouseID'});
+
+Type().hasMany(Product());
+Product().belongsTo(Type(), {foreignKey: 'typeID'});
 
 // (async() => {
 //     await Product().sync();
