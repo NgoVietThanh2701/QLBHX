@@ -2,7 +2,6 @@ import express from "express";
 import cors from "cors";
 import session  from "express-session";
 import SequelizeStore from "connect-session-sequelize";
-import FileUpload from "express-fileupload";
 import dotenv from "dotenv";
 import { connect } from "./config/Database";
 //-------------------router
@@ -46,7 +45,6 @@ app.use(cors({
     origin: ['http://localhost:3000', 'http://localhost:3001']
 }));
 app.use(express.json());
-app.use(FileUpload()); //upload file
 app.use(express.static("public"));// show image url
 
 app.use('/admin', branchRoute);

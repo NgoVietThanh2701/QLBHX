@@ -54,14 +54,13 @@ export const Order = (port = process.env.PORT_DEFAULT) => {
         freezeTableName: true,
         hasTrigger: true
     });
-
+    Order.belongsTo(Customer(port), {foreignKey: 'customerID'});
+    Order.belongsTo(Branch(port), {foreignKey: 'codeBranch'});
     return Order;
 }
 
-Customer().hasMany(Order());
-Order().belongsTo(Customer(), {foreignKey: 'customerID'});
-Branch().hasMany(Order());
-Order().belongsTo(Branch(), {foreignKey: 'codeBranch'});
+// Customer().hasMany(Order());
+// Branch().hasMany(Order());
 // (async() => {
 //     await Order().sync();
 // })();

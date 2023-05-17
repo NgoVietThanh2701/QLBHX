@@ -24,8 +24,8 @@ export const verifyAdmin = async (req, res, next) => {
             codeManager: req.session.codeManager
         }
     });
-    if(!manager) return res.status(401).json({msg: "manager not found"});
-    if(manager.role !== "admin") return res.status(404).json({msg: "please login with admin account!"});
+    if(!manager) return res.status(401).json({msg: "Manager not found"});
+    if(manager.role !== "admin") return res.status(404).json({msg: "Please login with admin account!"});
     req.port_cn = process.env.PORT_DEFAULT;
     next();
 }

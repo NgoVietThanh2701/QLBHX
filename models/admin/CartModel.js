@@ -7,20 +7,20 @@ dotenv.config();
 
 export const Cart = (port = process.env.PORT_DEFAULT) => {
     let Cart = connect(port).define('Cart', {
-        customerID: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
-            validate: {
-               notEmpty: true,
-            }
-         },
-        productID: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
-            validate: {
-               notEmpty: true,
-            }
-        },
+        // customerID: {
+        //     type: DataTypes.INTEGER,
+        //     allowNull: false,
+        //     validate: {
+        //        notEmpty: true,
+        //     }
+        //  },
+        // productID: {
+        //     type: DataTypes.INTEGER,
+        //     allowNull: false,
+        //     validate: {
+        //        notEmpty: true,
+        //     }
+        // },
         quantity: {
             type: DataTypes.INTEGER,
             allowNull: false,
@@ -40,14 +40,14 @@ export const Cart = (port = process.env.PORT_DEFAULT) => {
         hasTrigger: true
     });
 
+    Cart.belongsTo(Product(port), {foreignKey: 'productID'});
+    Cart.belongsTo(Customer(port), {foreignKey: 'customerID'});
+
     return Cart;
 }
 
-Product().hasMany(Cart());
-Cart().belongsTo(Product(), {foreignKey: 'productID'});
-
-Customer().hasMany(Cart());
-Cart().belongsTo(Customer(), {foreignKey: 'customerID'});
+// Product().hasMany(Cart());
+// Customer().hasMany(Cart());
 
 // (async() => {
 //     await Cart().sync();

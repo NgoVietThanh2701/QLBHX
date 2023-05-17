@@ -1,6 +1,7 @@
 import {Manager} from "../../models/admin/ManagerModel";
 import argon2 from 'argon2';
 import dotenv from 'dotenv';
+import { Branch } from "../../models/admin/BranchModel";
 dotenv.config();
 
 export const login = async (req, res) => {
@@ -24,11 +25,14 @@ export const login = async (req, res) => {
 }
 
 export const me = async (req, res) => {
-    if(!req.session.codeManager ||  !req.session.port_cn) {
+    if(!req.session.codeManager || !req.session.port_cn) {
         return res.status(401).json({msg: "please, login with account"});
     }
-    const manager = await Manager( req.session.port_cn).findOne({
-        attributes: ['codeManager', 'name', 'email', 'role', 'codeBranch'],
+    const manager = await Manager(req.session.port_cn).findOne({
+        attributes: ['name', 'email', 'role', 'codeBranch'],
+        include: {
+            model: Branch()
+        },
         where: {
             codeManager: req.session.codeManager
         }

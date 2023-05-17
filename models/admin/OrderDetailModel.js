@@ -41,15 +41,14 @@ export const OrderDetail = (port = process.env.PORT_DEFAULT) => {
         hasTrigger: true
     });
 
+    OrderDetail.belongsTo(Product(port), {foreignKey: 'productID'});
+    OrderDetail.belongsTo(Order(port), {foreignKey: 'orderID'});
     return OrderDetail;
 }
 
 
-Product().hasMany(OrderDetail());
-OrderDetail().belongsTo(Product(), {foreignKey: 'productID'});
-
-Order().hasMany(OrderDetail());
-OrderDetail().belongsTo(Order(), {foreignKey: 'orderID'});
+// Product().hasMany(OrderDetail());
+// Order().hasMany(OrderDetail());
 
 // (async() => {
 //     await OrderDetail().sync();

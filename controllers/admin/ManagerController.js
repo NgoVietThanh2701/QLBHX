@@ -6,7 +6,7 @@ export const createManager = async (req, res) => {
     const {name, email, password, confPassword, role, codeBranch} = req.body;
     if (password !== confPassword)
         return res.status(400).json({ msg: "password not matched" });
-    const managers = await Manager(req.port_cn).findAll();
+    const managers = await Manager().findAll();
     let ischeckEmail;
     for (const manager of managers) {
         if(manager.email === email) {
@@ -33,6 +33,9 @@ export const getManager = async (req, res) => {
     try {
         const manager = await Manager(req.port_cn).findAll({
             attributes: ['id', 'codeManager', 'name', 'email', 'role', 'codeBranch'],
+            include: {
+                model: Branch()
+            }
         });
         res.status(200).json(manager);
     } catch(error) {

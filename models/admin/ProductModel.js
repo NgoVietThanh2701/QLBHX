@@ -24,20 +24,6 @@ export const Product = (port = process.env.PORT_DEFAULT) => {
                notEmpty: true,
             }
         },
-        image: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            validate: {
-               notEmpty: true,
-            }
-         },
-        url: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            validate: {
-               notEmpty: true,
-            }
-        },
         description: {
             type: DataTypes.STRING,
             allowNull: false,
@@ -52,9 +38,16 @@ export const Product = (port = process.env.PORT_DEFAULT) => {
                notEmpty: true,
             }
         },
+        properties: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            validate: {
+               notEmpty: true,
+            }
+        },
         discount: {
             type: DataTypes.INTEGER,
-            allowNull: true
+            defaultValue: 0,
         },
         stock: {
             type: DataTypes.INTEGER,
@@ -62,6 +55,10 @@ export const Product = (port = process.env.PORT_DEFAULT) => {
             validate: {
                notEmpty: true,
             }
+        },
+        sold: {
+            type: DataTypes.INTEGER,
+            defaultValue: 0,
         },
         warehouseID: {
             type: DataTypes.INTEGER,
@@ -77,21 +74,18 @@ export const Product = (port = process.env.PORT_DEFAULT) => {
                 notEmpty: true,
             }
         },
-
     }, {
         freezeTableName: true,
         hasTrigger: true
     });
 
+    Product.belongsTo(Warehouse(port), {foreignKey: 'warehouseID'});
+    Product.belongsTo(Type(port), {foreignKey: 'typeID'});
     return Product;
 }
 
-
 Warehouse().hasMany(Product());
-Product().belongsTo(Warehouse(), {foreignKey: 'warehouseID'});
-
 Type().hasMany(Product());
-Product().belongsTo(Type(), {foreignKey: 'typeID'});
 
 // (async() => {
 //     await Product().sync();

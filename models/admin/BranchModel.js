@@ -1,6 +1,7 @@
 import { Sequelize } from "sequelize";
 import {connect} from "../../config/Database";
 import dotenv from 'dotenv';
+import { Manager } from "./ManagerModel";
 dotenv.config();
 
 const {DataTypes} = Sequelize;
@@ -33,8 +34,11 @@ export const Branch = (port = process.env.PORT_DEFAULT) => {
         freezeTableName: true,
         hasTrigger: true
     });
+
+    //Branch.hasMany(Manager(port));
     return Branch;
 }
+
 
 // (async() => {
 //     await Branch().sync();

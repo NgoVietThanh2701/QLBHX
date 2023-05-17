@@ -34,12 +34,11 @@ export const Type = (port = process.env.PORT_DEFAULT) => {
         freezeTableName: true,
         hasTrigger: true
     });
-
+    Type.belongsTo(Category(), {foreignKey: 'CategoryID'});
     return Type;
 }
 
-Category().hasMany(Type());
-Type().belongsTo(Category(), {foreignKey: 'CategoryID'});
+// Category().hasMany(Type());
 
 // (async() => {
 //     await Type().sync();
