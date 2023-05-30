@@ -27,18 +27,18 @@ export const Type = (port = process.env.PORT_DEFAULT) => {
             type: DataTypes.INTEGER,
             allowNull: false,
             validate: {
-                notEmpty: true
+               notEmpty: true,
             }
         }
     }, {
         freezeTableName: true,
         hasTrigger: true
     });
-    Type.belongsTo(Category(), {foreignKey: 'CategoryID'});
+    Type.belongsTo(Category(), {foreignKey: 'categoryID'});
     return Type;
 }
 
-// Category().hasMany(Type());
+Category().hasMany(Type());
 
 // (async() => {
 //     await Type().sync();

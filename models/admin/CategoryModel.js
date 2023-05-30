@@ -21,7 +21,21 @@ export const Category = (port = process.env.PORT_DEFAULT) => {
             validate: {
                notEmpty: true,
             }
-         },
+        },
+        fileName: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            validate: {
+               notEmpty: true,
+            }
+        },
+        url: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            validate: {
+               notEmpty: true,
+            }
+        }, 
     }, {
         freezeTableName: true,
         hasTrigger: true

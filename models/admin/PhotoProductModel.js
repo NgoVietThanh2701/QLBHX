@@ -31,9 +31,9 @@ export const PhotoProduct = (port = process.env.PORT_DEFAULT) => {
         freezeTableName: true,
         hasTrigger: true
     });
-    PhotoProduct.belongsTo(Product(port), {foreignKey: 'productID'});
     return PhotoProduct;
 }
+
 // (async() => {
 //     await PhotoProduct().sync();
 // })();

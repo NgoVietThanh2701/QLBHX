@@ -1,5 +1,5 @@
 import express from 'express';
-import { createProduct, deleteProduct, getProducts } from '../../controllers/admin/ProductController';
+import { createProduct, deleteProduct, getProducts, getProductByID } from '../../controllers/admin/ProductController';
 import { verifyManager } from '../../middleware/AuthMiddleWare';
 import crypto from 'crypto'
 import path from "path";
@@ -20,9 +20,9 @@ const storage = multer.diskStorage({
 })
 
 const upload = multer({ storage: storage });
-router.post('/productr');
 router.post('/product', verifyManager, upload.array("images", 10), createProduct);
 router.get('/product', verifyManager, getProducts);
+router.get('/product/:codeProduct', verifyManager, getProductByID);
 router.delete('/product/:codeProduct', verifyManager, deleteProduct);
 
 

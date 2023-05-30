@@ -1,5 +1,4 @@
 import { Product } from "../../models/admin/ProductModel";
-import path from "path";
 import fs from "fs"
 import { Warehouse } from "../../models/admin/WarehouseModel";
 import { Type } from "../../models/admin/TypeModel";
@@ -32,7 +31,6 @@ export const createProduct = async (req, res) => {
                 fileName: fileName,
                 url: url
             });
-
             // Di chuyển tệp tin vào thư mục public
             fs.renameSync(filePath, `./public/images/products/${fileName}`);
         }
@@ -46,7 +44,7 @@ export const createProduct = async (req, res) => {
 export const getProducts = async (req, res) => {
     try {
         const products = await Product(req.port_cn).findAll({
-            attributes: ['id', 'codeProduct', 'name', 'image', 'url', 'description', 'price', 'discount', 'stock'],
+            attributes: ['id', 'codeProduct', 'name', 'description', 'price', 'properties', 'discount', 'stock', 'sold'],
             include: [
                 {
                     model: Type(),
@@ -56,9 +54,41 @@ export const getProducts = async (req, res) => {
                     model: Warehouse(),
                     attributes: ['id', 'codeWH', 'name', 'address', 'codeBranch']
                 },
+                {
+                    model: PhotoProduct(),
+                    attributes: ['id', 'productID', 'fileName', 'url']
+                } 
             ]
         });
         res.status(200).json(products);
+    } catch(error) {
+        return res.status(500).json({msg: error.message});
+    }
+}
+
+export const getProductByID = async (req, res) => {
+    const productbyID = await Product(req.port_cn).findOne({where: {codeProduct: req.params.codeProduct}});
+    if(!productbyID) return res.status(400).json({msg: "Product not found!"});
+    try {
+        const product = await Product(req.port_cn).findAll({
+            attributes: ['id', 'codeProduct', 'name', 'description', 'price', 'properties', 'discount', 'stock', 'sold'],
+            include: [
+                {
+                    model: Type(),
+                    attributes: ['id', 'codeType', 'name', 'categoryID']
+                },
+                {
+                    model: Warehouse(),
+                    attributes: ['id', 'codeWH', 'name', 'address', 'codeBranch']
+                },
+                {
+                    model: PhotoProduct(),
+                    attributes: ['id', 'productID', 'fileName', 'url']
+                } 
+            ],
+            where: {id: productbyID.id}
+        });
+        res.status(200).json(product);
     } catch(error) {
         return res.status(500).json({msg: error.message});
     }
@@ -68,8 +98,12 @@ export const deleteProduct = async (req, res) => {
     const product = await Product(req.port_cn).findOne({where: {codeProduct: req.params.codeProduct}});
     if(!product) return res.status(400).json({msg: "product not found"});
     try {
-        const filepath = `./public/images/products/${product.image}`;
-        fs.unlinkSync(filepath);
+        const photos = await PhotoProduct(req.port_cn).findAll({where: {productID: product.id}});
+        photos.forEach(photo => {
+            const filepath = `./public/images/products/${photo.fileName}`;
+            fs.unlinkSync(filepath);
+        });
+        await PhotoProduct(req.port_cn).destroy({where: {productID: product.id}})
         await Product(req.port_cn).destroy({where: {id: product.id}});
         res.status(200).json({msg: "delete product successfully"});
     }catch(error) {

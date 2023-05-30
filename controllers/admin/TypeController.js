@@ -16,12 +16,31 @@ export const createType = async (req, res) => {
 export const getTypes = async (req, res) => {
     try {
         const types = await Type().findAll({
-            attributes: ['id', 'codeType', 'name', 'categoryID', 'createdAt'],
+            attributes: ['id', 'codeType', 'name', 'createdAt'],
             include: {
                 model: Category()
             }
         });
         res.status(200).json(types);
+    } catch(error) {
+        res.status(500).json({msg: error.message});
+    } 
+}
+
+export const getTypeByID = async (req, res) => {
+    const typeCode = await Type().findOne({where: {codeType: req.params.codeType}});
+    if(!typeCode) return res.stauts(400).json({msg: "Type not found!"});
+    try {
+        const type = await Type().findOne({
+            attributes: ['id', 'codeType', 'name', 'createdAt'],
+            include: {
+                model: Category()
+            },
+            where: {
+                id: typeCode.id
+            }
+        });
+        res.status(200).json(type);
     } catch(error) {
         res.status(500).json({msg: error.message});
     } 

@@ -3,6 +3,7 @@ import {connect} from "../../config/Database";
 import { Warehouse } from "./WarehouseModel";
 import { Type } from "./TypeModel";
 import dotenv from 'dotenv';
+import { PhotoProduct } from "./PhotoProductModel";
 dotenv.config();
 
 const {DataTypes} = Sequelize;
@@ -79,13 +80,11 @@ export const Product = (port = process.env.PORT_DEFAULT) => {
         hasTrigger: true
     });
 
-    Product.belongsTo(Warehouse(port), {foreignKey: 'warehouseID'});
+    Product.belongsTo(Warehouse(port), {foreignKey: 'warehouseID',});
     Product.belongsTo(Type(port), {foreignKey: 'typeID'});
+    Product.hasMany(PhotoProduct(port), {foreignKey: 'productID'});
     return Product;
 }
-
-Warehouse().hasMany(Product());
-Type().hasMany(Product());
 
 // (async() => {
 //     await Product().sync();
