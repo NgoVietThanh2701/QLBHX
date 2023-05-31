@@ -52,9 +52,9 @@ export const getCategoryByID = async (req, res) => {
 }
 
 export const updatedCategory = async (req, res) => {
+    const category = await Category().findOne({where: {codeCategory: req.params.codeCategory}});
+    if(!category) return res.status(400).json({msg: "category not found"});
     try {
-        const category = await Category().findOne({where: {codeCategory: req.params.codeCategory}});
-        if(!category) return res.status(400).json({msg: "category not found"});
         let fileName;
         if (!req.file || req.file.length === 0) { 
             fileName = category.fileName;
@@ -72,7 +72,6 @@ export const updatedCategory = async (req, res) => {
 
         const url = `${req.protocol}://${req.get("host")}/images/categories/${fileName}`;
         const {name} = req.body;
-        console.log("-"+name)
         await Category().update({
             name: name,
             fileName: fileName,
