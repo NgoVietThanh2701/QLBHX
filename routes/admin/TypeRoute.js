@@ -1,6 +1,6 @@
 import express from 'express';
 import { createType, deleteType, getTypes, updatedType, getTypeByID } from '../../controllers/admin/TypeController';
-import { verifyAdmin, verifyManager } from '../../middleware/AuthMiddleWare';
+import { verifyAdmin, verifyManager} from "../../middleware/admin/AuthMiddleware";
 
 const router = express.Router();
 

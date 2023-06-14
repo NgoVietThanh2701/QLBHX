@@ -1,6 +1,6 @@
 import express from 'express';
 import { createProduct, deleteProduct, getProducts, getProductByID, updateProduct } from '../../controllers/admin/ProductController';
-import { verifyManager } from '../../middleware/AuthMiddleWare';
+import { verifyManager} from "../../middleware/admin/AuthMiddleware";
 import crypto from 'crypto'
 import path from "path";
 const router = express.Router();

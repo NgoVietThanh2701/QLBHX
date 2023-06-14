@@ -7,20 +7,20 @@ dotenv.config();
 
 export const Cart = (port = process.env.PORT_DEFAULT) => {
     let Cart = connect(port).define('Cart', {
-        // customerID: {
-        //     type: DataTypes.INTEGER,
-        //     allowNull: false,
-        //     validate: {
-        //        notEmpty: true,
-        //     }
-        //  },
-        // productID: {
-        //     type: DataTypes.INTEGER,
-        //     allowNull: false,
-        //     validate: {
-        //        notEmpty: true,
-        //     }
-        // },
+        customerID: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            validate: {
+               notEmpty: true,
+            }
+         },
+        productID: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            validate: {
+               notEmpty: true,
+            }
+        },
         quantity: {
             type: DataTypes.INTEGER,
             allowNull: false,
@@ -28,12 +28,13 @@ export const Cart = (port = process.env.PORT_DEFAULT) => {
                notEmpty: true,
             }
         },
+        classify: {
+            type: DataTypes.STRING,
+            defaultValue: ""
+        },
         status: {
             type: DataTypes.BOOLEAN,
-            allowNull: false,
-            validate: {
-               notEmpty: true,
-            }
+            defaultValue: false,
         }
     }, {
         freezeTableName: true,
@@ -45,9 +46,6 @@ export const Cart = (port = process.env.PORT_DEFAULT) => {
 
     return Cart;
 }
-
-// Product().hasMany(Cart());
-// Customer().hasMany(Cart());
 
 // (async() => {
 //     await Cart().sync();

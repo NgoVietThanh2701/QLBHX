@@ -36,11 +36,18 @@ export const Order = (port = process.env.PORT_DEFAULT) => {
                notEmpty: true,
             }
         },
-        total: {
+        totalMoney: {
             type: DataTypes.INTEGER,
             allowNull: false,
             validate: {
                notEmpty: true,
+            }
+        },
+        costShip: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            validate: {
+                notEmpty: true
             }
         },
         note: {
@@ -59,8 +66,6 @@ export const Order = (port = process.env.PORT_DEFAULT) => {
     return Order;
 }
 
-// Customer().hasMany(Order());
-// Branch().hasMany(Order());
 // (async() => {
 //     await Order().sync();
 // })();

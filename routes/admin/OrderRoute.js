@@ -1,9 +1,9 @@
 import express from "express";
-import { createOrder, getOrderDetail, getOrders } from "../../controllers/admin/OrderController";
+import { getOrderDetail, getOrders } from "../../controllers/OrderController";
+import { verifyManager } from "../../middleware/admin/AuthMiddleware";
 
 const router = express.Router();
-router.post('/cart/:id', createOrder);
-router.get('/order', getOrders);
-router.get('/order/:id', getOrderDetail);
+router.get('/order', verifyManager,  getOrders);
+router.get('/order/:id', verifyManager, getOrderDetail);
 
 export default router;

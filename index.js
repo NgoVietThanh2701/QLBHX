@@ -4,7 +4,7 @@ import session  from "express-session";
 import SequelizeStore from "connect-session-sequelize";
 import dotenv from "dotenv";
 import { connect } from "./config/Database";
-//-------------------router
+//------------------- router admin
 import branchRoute from "./routes/admin/BranchRoute";
 import categoryRoute from "./routes/admin/CategoryRoute";
 import managerRoute from "./routes/admin/ManagerRoute";
@@ -14,10 +14,10 @@ import typeRoute from "./routes/admin/TypeRoute";
 import warehouseRoute from "./routes/admin/WarehouseRoute";
 import customerRoute from "./routes/admin/CustomerRoute";
 import orderRoute from "./routes/admin/OrderRoute";
-import cartRoute from "./routes/admin/CartRoute";
 import authRoute from "./routes/admin/AuthRoute";
-// -------- router user
+// ------------------- router user
 import getRoute from './routes/user/getRouter';
+import cartRoute from "./routes/user/CartRoute";
 
 //root:3434 dn:3435 hcm:3436: hn:3437
 
@@ -47,6 +47,7 @@ app.use(cors({
 app.use(express.json());
 app.use(express.static("public"));// show image url
 
+// ------------------------- admin router
 app.use('/admin', branchRoute);
 app.use('/admin', warehouseRoute);
 app.use('/admin', staffRoute);
@@ -56,10 +57,10 @@ app.use('/admin', typeRoute);
 app.use('/admin', productRoute);
 app.use('/admin', customerRoute);
 app.use('/admin', orderRoute);
-app.use('/admin', cartRoute);
 app.use('/admin', authRoute);
-// --------
+// ------------------------- user router
 app.use(getRoute);
+app.use(cartRoute);
 
 // create sessions to database
 // store.sync(); 

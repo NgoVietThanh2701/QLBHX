@@ -29,6 +29,22 @@ export const getWarehouse = async(req, res) => {
     }
 }
 
+export const getWarehouseByID = async(req, res) => {
+    const warehouseID = await Warehouse(req.port_cn).findOne({where: {codeWH: req.params.codeWarehouse}});
+    if(!warehouseID) return res.stauts(400).json({msg: "wh not found!"});
+    try {
+        const warehouse = await Warehouse(req.port_cn).findOne({
+            attributes: ['id', 'codeWH', 'name', 'address', 'createdAt'],
+            include: {
+                model: Branch()
+            }, where: {id: warehouseID.id}
+        });
+        res.status(201).json(warehouse);
+    }catch(error) {
+        res.status(500).json({msg: error.message});
+    }
+}
+
 export const updatedWarehouse = async (req, res) => {
     const {name, address, codeBranch} = req.body;
     try {

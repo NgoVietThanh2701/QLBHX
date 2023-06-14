@@ -1,6 +1,6 @@
 import express from 'express';
 import { createStaff, deleteStaff, getStaff, updatedStaff } from '../../controllers/admin/StaffController';
-import { verifyManager } from '../../middleware/AuthMiddleWare';
+import { verifyManager} from "../../middleware/admin/AuthMiddleware";
 
 const router = express.Router();
 

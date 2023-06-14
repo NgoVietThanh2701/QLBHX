@@ -35,7 +35,10 @@ export const OrderDetail = (port = process.env.PORT_DEFAULT) => {
                notEmpty: true,
             }
         },
-
+        classify: {
+            type: DataTypes.STRING,
+            defaultValue: ""
+        },
     }, {
         freezeTableName: true,
         hasTrigger: true
@@ -45,10 +48,6 @@ export const OrderDetail = (port = process.env.PORT_DEFAULT) => {
     OrderDetail.belongsTo(Order(port), {foreignKey: 'orderID'});
     return OrderDetail;
 }
-
-
-// Product().hasMany(OrderDetail());
-// Order().hasMany(OrderDetail());
 
 // (async() => {
 //     await OrderDetail().sync();

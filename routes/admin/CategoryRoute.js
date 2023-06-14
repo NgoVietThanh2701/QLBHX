@@ -1,6 +1,6 @@
 import express from 'express';
 import { createCategory, deleteCategory, getCategories, updatedCategory, getCategoryByID } from '../../controllers/admin/CategoryController';
-import { verifyAdmin, verifyManager } from '../../middleware/AuthMiddleWare';
+import { verifyAdmin, verifyManager} from "../../middleware/admin/AuthMiddleware";
 import crypto from 'crypto'
 import path from "path";
 const router = express.Router();

@@ -1,6 +1,6 @@
 import express from 'express';
 import { createManager, getManager } from '../../controllers/admin/ManagerController';
-import { verifyAdmin, verifyManager } from '../../middleware/AuthMiddleWare';
+import { verifyAdmin, verifyManager} from "../../middleware/admin/AuthMiddleware";
 
 const router = express.Router();
 

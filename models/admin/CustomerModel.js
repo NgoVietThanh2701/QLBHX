@@ -39,16 +39,9 @@ export const Customer = (port = process.env.PORT_DEFAULT) => {
         },
         phone: {
             type: DataTypes.INTEGER,
-            validate : {
-                notEmpty: true
-            }
         },
         address: {
             type: DataTypes.STRING,
-            allowNull: false,
-            validate: {
-                notEmpty: true,
-            }
         },
     }, {
         freezeTableName: true,

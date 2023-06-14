@@ -1,4 +1,4 @@
-import { Manager } from "../models/admin/ManagerModel";
+import { Manager } from "../../models/admin/ManagerModel";
 import dotenv from 'dotenv';
 dotenv.config();
  
