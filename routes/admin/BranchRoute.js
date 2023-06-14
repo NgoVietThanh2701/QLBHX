@@ -5,7 +5,7 @@ import { verifyAdmin, verifyManager} from "../../middleware/admin/AuthMiddleware
 const router = express.Router();
 
 router.post('/branch', verifyManager, verifyAdmin, createBranch);
-router.get('/branch', verifyManager, verifyAdmin, getBranch);
+router.get('/branch', verifyManager, getBranch);
 router.patch('/branch/:codeBranch', verifyManager, verifyAdmin, updatedBranch);
 router.delete('/branch/:codeBranch', verifyManager, verifyAdmin, deleteBranch);
 

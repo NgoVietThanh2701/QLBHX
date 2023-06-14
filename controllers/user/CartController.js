@@ -72,7 +72,7 @@ export const createCart = async (req, res) => {
 export const getCart = async (req, res) => {
     if(!req.userID) return res.status(400).json({msg: "No cart, please login!"});
     try {
-        const carts = await Cart().findAll({
+        const carts = await Cart(req.params.port).findAll({
             attributes: ["id", "quantity", "classify", "status"],
             where: {
                 customerID: req.userID

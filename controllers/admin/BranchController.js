@@ -15,7 +15,7 @@ export const createBranch = async (req, res) => {
 
 export const getBranch = async (req, res) => {
     try {
-        const branchs = await Branch().findAll({
+        const branchs = await Branch(req.port_cn).findAll({
             attributes: ['codeBranch', 'name', 'address', 'createdAt']
         });
         res.status(201).json(branchs);
